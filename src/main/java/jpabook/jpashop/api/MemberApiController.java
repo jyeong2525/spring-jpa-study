@@ -76,4 +76,28 @@ public class MemberApiController {
     public List<Member> membersV1() {
         return memberService.findMembers();
     }
+
+    //조회 V2
+    @GetMapping("/api/v2/members")
+    public Result membersV2() {
+
+        List<Member> findMembers = memberService.findMembers();
+        //엔티티-> DTO 변환
+        List<MemberDto> collect = findMembers.stream().map(m -> new MemberDto(m.getName()))
+                .toList();
+        return new Result(collect);
+    }
+
+    @Data
+    @AllArgsConstructor
+    private class Result<T> {
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
+
+    }
 }
