@@ -29,4 +29,15 @@ public class OrderApiController {
         }
         return all;
     }
+
+    //V2. 엔티티를 DTO로 변환
+    @GetMapping("/api/v2/orders")
+    public List<OrderDto> ordersV2() {
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        List<OrderDto> result = orders.stream()
+                .map(OrderDto::new)
+                .toList();
+
+        return result;
+    }
 }
