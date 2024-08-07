@@ -58,4 +58,12 @@ public class OrderSimpleApiController {
             address = order.getDelivery().getAddress();
         }
     }
+
+    //V3 fetch join 사용
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream().map(SimpleOrderDto::new).toList();
+        return result;
+    }
 }
