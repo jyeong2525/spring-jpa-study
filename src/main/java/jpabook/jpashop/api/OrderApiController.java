@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.plaf.BorderUIResource;
 import java.util.List;
 
 @RestController
@@ -37,6 +38,15 @@ public class OrderApiController {
         List<OrderDto> result = orders.stream()
                 .map(OrderDto::new)
                 .toList();
+
+        return result;
+    }
+
+    //V3. 페치 조인 최적화
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+        List<OrderDto> result = orders.stream().map(OrderDto::new).toList();
 
         return result;
     }
