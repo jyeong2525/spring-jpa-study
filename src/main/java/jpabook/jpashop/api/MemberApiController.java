@@ -24,7 +24,7 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
-    //등록 V2: 요청 값으로 Member 엔티티를 직접 받는다.
+    //등록 V2: 요청 값으로 Member DTO로 받는다
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
 
